@@ -10,21 +10,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romuloalves/create-micro.git"
+    "url": "git+https://github.com/gorillab/create-micro.git"
+  },
+  "engines": {
+    "node": ">=9"
   },
   "keywords": [
     "micro",
     "zeit",
     "microservice",
+    "gorillab",
     "http",
     "https"
   ],
-  "author": "romuloalves",
+  "author": "gorillab",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/romuloalves/create-micro/issues"
+    "url": "https://github.com/gorillab/create-micro/issues"
   },
-  "homepage": "https://github.com/romuloalves/create-micro#readme",
+  "homepage": "https://github.com/gorillab/create-micro#readme",
   "xo": {
     "esnext": true,
     "envs": [
