@@ -1,0 +1,36 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "micro-dev",
+    "start": "micro",
+    "lint": "xo",
+    "test": "npm run lint && ava"
+  },
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "xo": {
+    "extends": "prettier"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "joi": "^13.0.2",
+    "micro": "latest",
+    "micro-joi": "^3.1.0",
+    "microrouter": "^3.0.0",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.23.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "0.21.0",
+    "eslint-config-prettier": "2.3.0",
+    "prettier": "1.5.3",
+    "request-promise": "4.2.1",
+    "test-listen": "1.0.2",
+    "xo": "0.18.2",
+    "micro-dev": "latest"
+  }
+}
