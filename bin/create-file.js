@@ -11,7 +11,11 @@ module.exports = (data, dirname) => {
       if (!existsSync(dir)) {
         mkdirSync(dir)
       }
-      writeFileSync(distPath.replace('.tmpl', ''), data.content)
+      console.log('@dirname: ', dirname);
+      console.log('@distPath: ', distPath);
+      const refactorPath = distPath.replace('{{name}}', dirname);
+      console.log('@distPath-refact: ', refactorPath);
+      writeFileSync(refactorPath.replace('.tmpl', ''), data.content)
       resolve()
     } catch (err) {
       reject(err)
