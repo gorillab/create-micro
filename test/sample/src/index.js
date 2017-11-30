@@ -5,7 +5,7 @@ const Joi = require('joi');
 const { send, json, text } = require('micro');
 const { router, get, post, put, del } = require('microrouter');
 const { list, detail, create, update, remove } = require('./sample.controller.js');
-const { get2 } = require('./middlewares.js');
+const { get2, decorate } = require('./middlewares.js');
 
 const validator = Validation(Joi.object({
     name: Joi.string().required(),
@@ -21,7 +21,8 @@ console.log(get2('string222', function() {
 }));
 
 module.exports = router(
-  get2('/api/sample', list),
+  get('/api/sample', decorate(list)),
+  get2('/api/sample2', list),
   post('/api/sample', validator(create)),
   get('/api/sample/:id', detail),
   put('/api/sample/:id', validator(update)),

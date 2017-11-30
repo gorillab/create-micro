@@ -1,4 +1,4 @@
-const sampleModel = require('./config/mysql.js').load('sample.model.js');
+const sampleModel = require('./config/mysql.js').load('sample');
 
 exports.list = async (req, res, { send }) => {
   const samples = await sampleModel.findAll({

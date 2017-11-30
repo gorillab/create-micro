@@ -11,10 +11,10 @@ const sequelizeDB = new Sequelize(
         },
         native: false,
         logging: false,
-        timezone: '+07:00'
+        timezone: '+07:00',
     }
 );
 
-exports.load = () => {
-    return require("../data.js")(sequelizeDB, Sequelize);
+exports.load = (name) => {
+    return require(`../${name}.model.js`)(sequelizeDB, Sequelize);
 };
