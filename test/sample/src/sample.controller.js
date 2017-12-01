@@ -1,26 +1,36 @@
+const { json } = require('micro');
+
 const sampleModel = require('./config/mysql.js').load('sample');
 
-exports.list = async (req, res, { send }) => {
+const getList = async (req, res) => {
   const samples = await sampleModel.findAll({
+    where: {
+      isDeleted: false,
+    },
     raw: true,
   });
 
-  send(res, 200, samples);
+  res.send(200, samples);
 };
 
-exports.detail = async (req, res, { send }) => {
+const getDetails = async (req, res) => {
   const { id } = req.params;
   const sample = await sampleModel.findOne({
     where: {
-      id: id,
+      id,
+      isDeleted: false,
     },
     raw: true,
-  })
+  });
 
-  send(res, 200, sample);
+  if (!sample) {
+    return res.send(404, 'sample not found');
+  }
+
+  res.send(200, sample);
 };
 
-exports.create = async (req, res, { send, json }) => {
+const create = async (req, res) => {
   const { name, description } = await json(req);
   try {
     const sample = await sampleModel.create({
@@ -28,25 +38,25 @@ exports.create = async (req, res, { send, json }) => {
       description,
     });
 
-    send(res, 200, sample);
+    res.send(200, sample);
   } catch (err) {
-
-    send(res, 500, 'Create sample failed!');
+    res.send(500, 'Create sample failed!');
   }
 };
 
-exports.update = async (req, res, { send , json }) => {
+const update = async (req, res) => {
   const { id } = req.params;
   const { name, description } = await json(req);
 
   const sample = await sampleModel.findOne({
     where: {
-      id: id,
-    }
+      id,
+      isDeleted: false,
+    },
   });
 
   if (!sample) {
-    return send(res, 404, 'sample not found');
+    return res.send(404, 'sample not found');
   }
 
   await sample.update({
@@ -55,20 +65,21 @@ exports.update = async (req, res, { send , json }) => {
     updatedAt: new Date(),
   });
 
-  send(res, 200, sample);
+  return res.send(200, sample);
 };
 
-exports.remove = async (req, res, { send }) => {
+const remove = async (req, res) => {
   const { id } = req.params;
 
   const sample = await sampleModel.findOne({
     where: {
-      id: id,
-    }
+      id,
+      isDeleted: false,
+    },
   });
 
   if (!sample) {
-    return send(res, 404, 'sample not found');
+    return res.send(404, 'sample not found');
   }
 
   await sample.update({
@@ -76,5 +87,13 @@ exports.remove = async (req, res, { send }) => {
     isDeleted: true,
   });
 
-  send(res, 200, 'Ok');
+  return res.send(200, 'Ok');
+};
+
+module.exports = {
+  getList,
+  getDetails,
+  create,
+  update,
+  remove,
 };

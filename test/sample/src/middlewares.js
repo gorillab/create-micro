@@ -1,15 +1,19 @@
-const { router, get, post, put, del } = require('microrouter');
-const { send, json, text } = require('micro');
+const { send } = require('micro');
+const { get, post, put, del } = require('microrouter');
 
-const decorate = fn => async (req, res) => {
-  await fn(req, res, { send, json, text });
-}
+const wrap = (method, cb) => (path, fn) => {
+  const newFn = (req, res) => {
+    res.send = (...args) => send(res, ...args);
 
-const get2 = (...args) => {
-  get(...args);
+    return fn(req, res);
+  };
+
+  return cb(path, newFn);
 };
 
 module.exports = {
-  decorate,
-  get2,
+  get: wrap('get', get),
+  post: wrap('post', post),
+  put: wrap('put', put),
+  del: wrap('del', del),
 };

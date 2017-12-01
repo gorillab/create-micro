@@ -1,18 +1,11 @@
 {
   "name": "sample",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
-    "dev": "micro-dev -p 3006 && lint",
-    "start": "micro -p 3006",
-    "test": "npm run lint && ava"
-  },
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "xo": {
-    "extends": "prettier"
+    "dev": "micro-dev -p 3006",
+    "start": "micro -p 3006"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
@@ -25,18 +18,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "ava": "0.21.0",
     "eslint": "3.19.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "2.3.0",
+    "eslint-config-airbnb": "15.0.1",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.1.0",
-    "micro-dev": "latest",
-    "prettier": "1.5.3",
-    "request-promise": "4.2.1",
-    "test-listen": "1.0.2",
-    "xo": "0.18.2"
+    "micro-dev": "latest"
   },
   "eslintConfig": {
     "env": {
