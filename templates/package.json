@@ -1,18 +1,11 @@
 {
   "name": "{{name}}",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "dev": "micro-dev",
-    "start": "micro",
-    "lint": "xo",
-    "test": "npm run lint && ava"
-  },
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "xo": {
-    "extends": "prettier"
+    "lint": "eslint . --ignore-path .gitignore",
+    "dev": "micro-dev -p 3006",
+    "start": "micro -p 3006"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
@@ -25,12 +18,45 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "ava": "0.21.0",
-    "eslint-config-prettier": "2.3.0",
-    "prettier": "1.5.3",
-    "request-promise": "4.2.1",
-    "test-listen": "1.0.2",
-    "xo": "0.18.2",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "15.0.1",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "5.0.1",
+    "eslint-plugin-react": "7.1.0",
     "micro-dev": "latest"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "extends": "airbnb",
+    "rules": {
+      "no-underscore-dangle": [
+        2,
+        {
+          "allow": [
+            "_id",
+            "__v"
+          ]
+        }
+      ],
+      "no-param-reassign": [
+        1,
+        {
+          "props": false
+        }
+      ],
+      "func-names": [
+        "error",
+        "never"
+      ],
+      "no-await-in-loop": 0,
+      "no-restricted-syntax": [
+        "error",
+        "WithStatement",
+        "BinaryExpression[operator='in']"
+      ],
+      "linebreak-style": 0
+    }
   }
 }
