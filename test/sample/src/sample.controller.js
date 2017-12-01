@@ -27,7 +27,7 @@ const getDetails = async (req, res) => {
     return res.send(404, 'sample not found');
   }
 
-  res.send(200, sample);
+  return res.send(200, sample);
 };
 
 const create = async (req, res) => {
