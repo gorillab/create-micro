@@ -1,17 +1,23 @@
 const { json } = require('micro');
 
+const { arrayDifferent } = require('./helper');
 const sampleModel = require('./config/mysql.js').load('sample');
 
+const BLACK_LIST = ['isDeleted'];
+
 const getList = async (req, res) => {
+  const select = req.query.select
+    ? arrayDifferent(req.query.select.split(','), BLACK_LIST)
+    : ['name', 'description', 'createdAt', 'updatedAt'];
   const limit = req.query.limit ? +req.query.limit : 25;
   const {
-    sortField = 'name',
-    sortDir = 'ASC',
     page = 0,
     skip = page && page > 0 ? (page - 1) * limit : 0,
     search,
-    name, // for filter
+    name,
   } = req.query;
+  const sort = req.query.sort ? req.query.sort.replace('-', '') : 'name';
+  const sortDir = req.query.sort && req.query.sort.charAt(0) === '-' ? 'DESC' : 'ASC';
 
   const query = {
     isDeleted: false,
@@ -34,9 +40,7 @@ const getList = async (req, res) => {
     }];
   }
 
-  const select = {
-    exclude: [],
-  };
+
   const populate = [];
 
   const samples = await sampleModel.findAndCountAll({
@@ -45,7 +49,7 @@ const getList = async (req, res) => {
     offset: skip,
     limit,
     attributes: select,
-    order: [[sortField, sortDir]],
+    order: [[sort, sortDir]],
     include: populate,
   });
 
