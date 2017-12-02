@@ -1,7 +1,7 @@
 const { send } = require('micro');
 const { get, post, put, del } = require('microrouter');
 
-const wrap = (cb) => (path, fn) => {
+const wrap = cb => (path, fn) => {
   const newFn = (req, res) => {
     res.send = (...args) => send(res, ...args);
 

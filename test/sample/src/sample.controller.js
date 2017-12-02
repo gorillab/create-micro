@@ -3,11 +3,50 @@ const { json } = require('micro');
 const sampleModel = require('./config/mysql.js').load('sample');
 
 const getList = async (req, res) => {
-  const samples = await sampleModel.findAll({
-    where: {
-      isDeleted: false,
-    },
+  const limit = req.query.limit ? +req.query.limit : 25;
+  const {
+    sortField = 'name',
+    sortDir = 'ASC',
+    page = 0,
+    skip = page && page > 0 ? (page - 1) * limit : 0,
+    search,
+    name, // for filter
+  } = req.query;
+
+  const query = {
+    isDeleted: false,
+  };
+
+  if (name) {
+    query.name = name;
+  }
+
+  if (search) {
+    const q = `%${search}%`;
+    query.$or = [{
+      name: {
+        $like: q,
+      },
+    }, {
+      description: {
+        $like: q,
+      },
+    }];
+  }
+
+  const select = {
+    exclude: [],
+  };
+  const populate = [];
+
+  const samples = await sampleModel.findAndCountAll({
     raw: true,
+    where: query,
+    offset: skip,
+    limit,
+    attributes: select,
+    order: [[sortField, sortDir]],
+    include: populate,
   });
 
   res.send(200, samples);
