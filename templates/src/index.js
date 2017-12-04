@@ -16,10 +16,10 @@ const notfound = (req, res) => {
 };
 
 module.exports = router(
-  get('/api/{{name}}', getList),
-  post('/api/{{name}}', validator(create)),
-  get('/api/{{name}}/:id', getDetails),
-  put('/api/{{name}}/:id', validator(update)),
-  del('/api/{{name}}/:id', remove),
-  get('/*', notfound)
-)
+  get('/api/{{name}}s', getList),
+  post('/api/{{name}}s', validator(create)),
+  get('/api/{{name}}s/:id', getDetails),
+  put('/api/{{name}}s/:id', validator(update)),
+  del('/api/{{name}}s/:id', remove),
+  get('/*', notfound),
+);

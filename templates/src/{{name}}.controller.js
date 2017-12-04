@@ -1,13 +1,56 @@
 const { json } = require('micro');
 
+const { arrayDifferent } = require('./helper');
 const {{name}}Model = require('./config/mysql.js').load('{{name}}');
 
+const BLACK_LIST = ['isDeleted'];
+
 const getList = async (req, res) => {
-  const {{name}}s = await {{name}}Model.findAll({
-    where: {
-      isDeleted: false,
-    },
+  const select = req.query.select
+    ? arrayDifferent(req.query.select.split(','), BLACK_LIST)
+    : ['name', 'description', 'createdAt', 'updatedAt'];
+  const limit = req.query.limit ? +req.query.limit : 25;
+  const {
+    page = 0,
+    skip = page && page > 0 ? (page - 1) * limit : 0,
+    search,
+    name,
+  } = req.query;
+  const sort = req.query.sort ? req.query.sort.replace('-', '') : 'name';
+  const sortDir = req.query.sort && req.query.sort.charAt(0) === '-' ? 'DESC' : 'ASC';
+
+  const query = {
+    isDeleted: false,
+  };
+
+  if (name) {
+    query.name = name;
+  }
+
+  if (search) {
+    const q = `%${search}%`;
+    query.$or = [{
+      name: {
+        $like: q,
+      },
+    }, {
+      description: {
+        $like: q,
+      },
+    }];
+  }
+
+
+  const populate = [];
+
+  const {{name}}s = await {{name}}Model.findAndCountAll({
     raw: true,
+    where: query,
+    offset: skip,
+    limit,
+    attributes: select,
+    order: [[sort, sortDir]],
+    include: populate,
   });
 
   res.send(200, {{name}}s);
@@ -27,7 +70,7 @@ const getDetails = async (req, res) => {
     return res.send(404, '{{name}} not found');
   }
 
-  res.send(200, {{name}});
+  return res.send(200, {{name}});
 };
 
 const create = async (req, res) => {

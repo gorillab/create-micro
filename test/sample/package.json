@@ -1,7 +1,20 @@
 {
   "name": "sample",
+  "description": "Project to create a new instance of service using micro.",
   "version": "1.0.0",
+  "author": {
+    "name": "Gorillab",
+    "email": "hello@gorillab.co",
+    "url": "https://gorillab.co/"
+  },
   "main": "src/index.js",
+  "engines": {
+    "node": ">=9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gorillab/create-micro.git"
+  },
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
     "dev": "micro-dev -p 3006",
