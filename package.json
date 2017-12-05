@@ -1,7 +1,15 @@
 {
   "name": "@gorillab/create-micro",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Project to create a new instance of service using zeit/micro",
+  "author": {
+    "name": "Gorillab",
+    "email": "hello@gorillab.co",
+    "url": "https://gorillab.co/"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "create-micro": "./bin/index.js"
   },
@@ -20,7 +28,6 @@
     "http",
     "https"
   ],
-  "author": "gorillab",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gorillab/create-micro/issues"
