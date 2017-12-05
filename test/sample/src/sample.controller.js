@@ -1,6 +1,6 @@
 const { json } = require('micro');
 
-const { arrayDifferent } = require('./helper');
+const { arrayDifferent } = require('./helpers');
 const sampleModel = require('./config/mysql.js').load('sample');
 
 const BLACK_LIST = ['isDeleted'];

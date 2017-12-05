@@ -1,15 +1,9 @@
 require('dotenv').config();
 
-const Validation = require('micro-joi');
-const Joi = require('joi');
 const { router } = require('microrouter');
-const { get, post, put, del } = require('./middlewares.js');
+const { get, post, put, del } = require('./helpers.js');
 const { getList, getDetails, create, update, remove } = require('./sample.controller.js');
-
-const validator = Validation(Joi.object({
-  name: Joi.string().required(),
-  description: Joi.string().required(),
-}));
+const { validator } = require('./sample.middleware.js');
 
 const notfound = (req, res) => {
   res.send(404, 'Not found route');
