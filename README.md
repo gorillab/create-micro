@@ -4,9 +4,9 @@
 
 ## Installation
 
-Install using [npm](https://www.npmjs.com/):
+Install using [yarn](https://yarnpkg.com/en/):
 ```
-$ npm install -g create-micro
+$ yarn global add @gorillab/create-micro
 ```
 
 ## Usage
@@ -61,9 +61,14 @@ To create a Dockerfile in your service, use the flag `--dockerfile`.
 
 ```
   - src
+    - config
+      - mysql.js
+    - sample.controller.js
+    - sample.middleware.js
+    - sample.model.js
+    - helpers.js
     - index.js
-  - test
-    - index.js
+  - .env.example
   - .gitignore
   - package.json
   - Dockerfile (if flag --dockerfile was used)
@@ -78,21 +83,16 @@ By default, is used the last version of [micro](https://github.com/zeit/micro) a
 The default image is the latest version of `mhart/alpine-node`, and the Dockerfile installs just the production dependencies.
 
 ### Commands
-
-To test you service: (XO for linting and AVA for testing functionalities)
-
-`$ npm test`
-
 Just to lint:
 
-`$ npm run lint`
+`$ yarn run lint`
 
 To start the local server:
 
-`$ npm run dev`
+`$ yarn run dev`
 
 To start the production server:
 
-`$ npm start`
+`$ yarn start`
 
 *Don't forget to set the NODE_ENV environment variable to `production`.*
