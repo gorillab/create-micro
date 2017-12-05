@@ -11,7 +11,8 @@ module.exports = (data, dirname) => {
       if (!existsSync(dir)) {
         mkdirSync(dir)
       }
-      writeFileSync(distPath.replace('.tmpl', ''), data.content)
+      const refactorPath = distPath.replace('{{name}}', dirname);
+      writeFileSync(refactorPath.replace('.tmpl', ''), data.content)
       resolve()
     } catch (err) {
       reject(err)
