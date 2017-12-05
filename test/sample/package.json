@@ -17,8 +17,8 @@
   },
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
-    "dev": "micro-dev -p 3006",
-    "start": "micro -p 3006"
+    "dev": "micro-dev -p $PORT",
+    "start": "micro -p $PORT"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
