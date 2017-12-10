@@ -1,5 +1,5 @@
 // Packages
-const {cd, exec, which} = require('shelljs')
+const { cd, exec, which } = require('shelljs')
 
 const hasYarn = () => Boolean(which('yarn'))
 
@@ -7,10 +7,7 @@ module.exports = {
   hasYarn,
   install: path => new Promise((resolve, reject) => {
     cd(path)
-    let installCmd = 'npm install'
-    if (hasYarn()) {
-      installCmd = 'yarn'
-    }
+    const installCmd = hasYarn() ? 'yarn' : 'npm install'
 
     exec(installCmd, (code, stdout, stderr) => {
       if (code === 0) {

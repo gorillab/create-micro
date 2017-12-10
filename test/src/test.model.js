@@ -1,4 +1,4 @@
-const model = (sequelize, DataTypes) => sequelize.define('sample', {
+const model = (sequelize, DataTypes) => sequelize.define('test', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -22,7 +22,7 @@ const model = (sequelize, DataTypes) => sequelize.define('sample', {
     defaultValue: false,
   },
 }, {
-  tableName: 'sample',
+  tableName: 'test',
 });
 
 module.exports = model;

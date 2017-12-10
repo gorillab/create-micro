@@ -40,5 +40,9 @@
     "recursive-readdir": "2.1.1",
     "shelljs": "0.7.7",
     "trash": "^4.0.1"
+  },
+  "scripts": {
+    "test:gen": "bin/index.js -n test",
+    "test:rm": "rm -rf test"
   }
 }

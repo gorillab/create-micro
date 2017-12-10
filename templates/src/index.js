@@ -1,6 +1,6 @@
 require('dotenv').config();
-
 const { router } = require('microrouter');
+
 const { get, post, put, del } = require('./helpers.js');
 const { getList, getDetails, create, update, remove } = require('./{{name}}.controller.js');
 const { validator } = require('./{{name}}.middleware.js');

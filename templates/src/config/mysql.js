@@ -11,7 +11,7 @@ const sequelizeDB = new Sequelize(`mysql://${process.env.MYSQL_URL}`, {
 },
 );
 
-const load = (name) => require(`../${name}.model.js`)(sequelizeDB, Sequelize);  // eslint-disable-line
+const load = name => require(`../${name}.model.js`)(sequelizeDB, Sequelize);  // eslint-disable-line
 
 module.exports = {
   load,

@@ -1,7 +1,7 @@
 const { json } = require('micro');
 
 const { arrayDifferent } = require('./helpers');
-const sampleModel = require('./config/mysql.js').load('sample');
+const testModel = require('./config/mysql.js').load('test');
 
 const BLACK_LIST = ['isDeleted'];
 
@@ -43,7 +43,7 @@ const getList = async (req, res) => {
 
   const populate = [];
 
-  const samples = await sampleModel.findAndCountAll({
+  const tests = await testModel.findAndCountAll({
     raw: true,
     where: query,
     offset: skip,
@@ -53,12 +53,12 @@ const getList = async (req, res) => {
     include: populate,
   });
 
-  res.send(200, samples);
+  res.send(200, tests);
 };
 
 const getDetails = async (req, res) => {
   const { id } = req.params;
-  const sample = await sampleModel.findOne({
+  const test = await testModel.findOne({
     where: {
       id,
       isDeleted: false,
@@ -66,24 +66,24 @@ const getDetails = async (req, res) => {
     raw: true,
   });
 
-  if (!sample) {
-    return res.send(404, 'sample not found');
+  if (!test) {
+    return res.send(404, 'test not found');
   }
 
-  return res.send(200, sample);
+  return res.send(200, test);
 };
 
 const create = async (req, res) => {
   const { name, description } = await json(req);
   try {
-    const sample = await sampleModel.create({
+    const test = await testModel.create({
       name,
       description,
     });
 
-    res.send(200, sample);
+    res.send(200, test);
   } catch (err) {
-    res.send(500, 'Create sample failed!');
+    res.send(500, 'Create test failed!');
   }
 };
 
@@ -91,41 +91,41 @@ const update = async (req, res) => {
   const { id } = req.params;
   const { name, description } = await json(req);
 
-  const sample = await sampleModel.findOne({
+  const test = await testModel.findOne({
     where: {
       id,
       isDeleted: false,
     },
   });
 
-  if (!sample) {
-    return res.send(404, 'sample not found');
+  if (!test) {
+    return res.send(404, 'test not found');
   }
 
-  await sample.update({
+  await test.update({
     name,
     description,
     updatedAt: new Date(),
   });
 
-  return res.send(200, sample);
+  return res.send(200, test);
 };
 
 const remove = async (req, res) => {
   const { id } = req.params;
 
-  const sample = await sampleModel.findOne({
+  const test = await testModel.findOne({
     where: {
       id,
       isDeleted: false,
     },
   });
 
-  if (!sample) {
-    return res.send(404, 'sample not found');
+  if (!test) {
+    return res.send(404, 'test not found');
   }
 
-  await sample.update({
+  await test.update({
     updatedAt: new Date(),
     isDeleted: true,
   });

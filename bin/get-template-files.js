@@ -8,27 +8,18 @@ const recursive = require('recursive-readdir')
 const templatePath = path.resolve(__dirname, '..', 'templates')
 
 module.exports = options => {
-  function ignoreFiles(file) {
+  const ignoreFiles = file => {
     const basenameFile = path.basename(file)
-    if (!basenameFile.endsWith('.tmpl')) {
-      return false
-    }
+
     for (const key in options) {
       if (basenameFile.startsWith(key)) {
         return !options[key]
       }
     }
   }
-  return new Promise((resolve, reject) => {
-    recursive(templatePath, [ignoreFiles], (err, files) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve({
-          path: templatePath,
-          files
-        })
-      }
-    })
-  })
+
+  return new Promise((resolve, reject) => recursive(templatePath, [ignoreFiles], (err, files) => err ? reject(err) : resolve({
+    path: templatePath,
+    files
+  })))
 }
