@@ -1,4 +1,3 @@
-const { NOT_FOUND, INTERNAL_SERVER_ERROR, OK } = require('http-status-codes');
 const { json } = require('micro');
 
 const arrayDiff = require('./helpers/array-diff');
@@ -54,7 +53,7 @@ const getList = async (req, res) => {
     include: populate,
   });
 
-  res.send(OK, {{name}}s);
+  res.send({{name}}s);
 };
 
 const getDetails = async (req, res) => {
@@ -68,13 +67,10 @@ const getDetails = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: '{{name}} not found',
-    });
+    return res.sendNotFoundError(new Error('{{name}} not found'));
   }
 
-  return res.send(OK, {{name}});
+  return res.send({{name}});
 };
 
 const create = async (req, res) => {
@@ -85,12 +81,9 @@ const create = async (req, res) => {
       description,
     });
 
-    res.send(OK, {{name}});
+    res.send({{name}});
   } catch (err) {
-    res.send(INTERNAL_SERVER_ERROR, {
-      code: INTERNAL_SERVER_ERROR,
-      message: 'Create {{name}} failed!',
-    });
+    res.sendServerError(err);
   }
 };
 
@@ -106,10 +99,7 @@ const update = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: '{{name}} not found',
-    });
+    return res.sendNotFoundError(new Error('{{name}} not found'));
   }
 
   await {{name}}.update({
@@ -118,7 +108,7 @@ const update = async (req, res) => {
     updatedAt: new Date(),
   });
 
-  return res.send(OK, {{name}});
+  return res.send({{name}});
 };
 
 const remove = async (req, res) => {
@@ -132,10 +122,7 @@ const remove = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: '{{name}} not found',
-    });
+    return res.sendNotFoundError(new Error('{{name}} not found'));
   }
 
   await {{name}}.update({
@@ -143,7 +130,7 @@ const remove = async (req, res) => {
     isDeleted: true,
   });
 
-  return res.send(OK, {{name}});
+  return res.send({{name}});
 };
 
 module.exports = {

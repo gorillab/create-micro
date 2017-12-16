@@ -42,7 +42,8 @@
     "trash": "^4.0.1"
   },
   "scripts": {
+    "test:rm": "rm -rf test",
     "test:gen": "bin/index.js -n test",
-    "test:rm": "rm -rf test"
+    "test:start": "cd test && yarn start"
   }
 }

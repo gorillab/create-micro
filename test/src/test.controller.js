@@ -1,4 +1,3 @@
-const { NOT_FOUND, INTERNAL_SERVER_ERROR, OK } = require('http-status-codes');
 const { json } = require('micro');
 
 const arrayDiff = require('./helpers/array-diff');
@@ -54,7 +53,7 @@ const getList = async (req, res) => {
     include: populate,
   });
 
-  res.send(OK, tests);
+  res.send(tests);
 };
 
 const getDetails = async (req, res) => {
@@ -68,13 +67,10 @@ const getDetails = async (req, res) => {
   });
 
   if (!test) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: 'test not found',
-    });
+    return res.sendNotFoundError(new Error('test not found'));
   }
 
-  return res.send(OK, test);
+  return res.send(test);
 };
 
 const create = async (req, res) => {
@@ -85,12 +81,9 @@ const create = async (req, res) => {
       description,
     });
 
-    res.send(OK, test);
+    res.send(test);
   } catch (err) {
-    res.send(INTERNAL_SERVER_ERROR, {
-      code: INTERNAL_SERVER_ERROR,
-      message: 'Create test failed!',
-    });
+    res.sendServerError(err);
   }
 };
 
@@ -106,10 +99,7 @@ const update = async (req, res) => {
   });
 
   if (!test) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: 'test not found',
-    });
+    return res.sendNotFoundError(new Error('test not found'));
   }
 
   await test.update({
@@ -118,7 +108,7 @@ const update = async (req, res) => {
     updatedAt: new Date(),
   });
 
-  return res.send(OK, test);
+  return res.send(test);
 };
 
 const remove = async (req, res) => {
@@ -132,10 +122,7 @@ const remove = async (req, res) => {
   });
 
   if (!test) {
-    return res.send(NOT_FOUND, {
-      code: NOT_FOUND,
-      message: 'test not found',
-    });
+    return res.sendNotFoundError(new Error('test not found'));
   }
 
   await test.update({
@@ -143,7 +130,7 @@ const remove = async (req, res) => {
     isDeleted: true,
   });
 
-  return res.send(OK, test);
+  return res.send(test);
 };
 
 module.exports = {
