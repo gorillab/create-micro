@@ -85,14 +85,14 @@ The default image is the latest version of `mhart/alpine-node`, and the Dockerfi
 ### Commands
 Just to lint:
 
-`$ yarn lint`
+`$ yarn test`
 
 To start the local server:
 
-`$ yarn dev`
+`$ yarn start`
 
 To start the production server:
 
-`$ yarn start`
+`$ yarn serve`
 
 *Don't forget to set the NODE_ENV environment variable to `production`.*
