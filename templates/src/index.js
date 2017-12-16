@@ -1,9 +1,8 @@
 require('dotenv').config();
-const { router } = require('microrouter');
 
-const { get, post, put, del } = require('./helpers.js');
-const { getList, getDetails, create, update, remove } = require('./{{name}}.controller.js');
-const { validator } = require('./{{name}}.middleware.js');
+const { router, get, post, put, del } = require('./helpers');
+const { getList, getDetails, create, update, remove } = require('./{{name}}.controller');
+const { validator } = require('./{{name}}.middleware');
 
 const notfound = (req, res) => {
   res.send(404, 'Not found route');
