@@ -1,14 +1,14 @@
 const { NOT_FOUND, INTERNAL_SERVER_ERROR, OK } = require('http-status-codes');
 const { json } = require('micro');
 
-const { arrayDifferent } = require('./helpers');
+const arrayDiff = require('./helpers/array-diff');
 const testModel = require('./config/mysql').load('test');
 
 const BLACK_LIST = ['isDeleted'];
 
 const getList = async (req, res) => {
   const select = req.query.select
-    ? arrayDifferent(req.query.select.split(','), BLACK_LIST)
+    ? arrayDiff(req.query.select.split(','), BLACK_LIST)
     : ['name', 'description', 'createdAt', 'updatedAt'];
   const limit = req.query.limit ? +req.query.limit : 25;
   const {
