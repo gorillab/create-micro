@@ -1,7 +1,8 @@
+const { NOT_FOUND, INTERNAL_SERVER_ERROR, OK } = require('http-status-codes');
 const { json } = require('micro');
 
 const { arrayDifferent } = require('./helpers');
-const {{name}}Model = require('./config/mysql.js').load('{{name}}');
+const {{name}}Model = require('./config/mysql').load('{{name}}');
 
 const BLACK_LIST = ['isDeleted'];
 
@@ -53,7 +54,7 @@ const getList = async (req, res) => {
     include: populate,
   });
 
-  res.send(200, {{name}}s);
+  res.send(OK, {{name}}s);
 };
 
 const getDetails = async (req, res) => {
@@ -67,10 +68,13 @@ const getDetails = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(404, '{{name}} not found');
+    return res.send(NOT_FOUND, {
+      code: NOT_FOUND,
+      message: '{{name}} not found',
+    });
   }
 
-  return res.send(200, {{name}});
+  return res.send(OK, {{name}});
 };
 
 const create = async (req, res) => {
@@ -81,9 +85,12 @@ const create = async (req, res) => {
       description,
     });
 
-    res.send(200, {{name}});
+    res.send(OK, {{name}});
   } catch (err) {
-    res.send(500, 'Create {{name}} failed!');
+    res.send(INTERNAL_SERVER_ERROR, {
+      code: INTERNAL_SERVER_ERROR,
+      message: 'Create {{name}} failed!',
+    });
   }
 };
 
@@ -99,7 +106,10 @@ const update = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(404, '{{name}} not found');
+    return res.send(NOT_FOUND, {
+      code: NOT_FOUND,
+      message: '{{name}} not found',
+    });
   }
 
   await {{name}}.update({
@@ -108,7 +118,7 @@ const update = async (req, res) => {
     updatedAt: new Date(),
   });
 
-  return res.send(200, {{name}});
+  return res.send(OK, {{name}});
 };
 
 const remove = async (req, res) => {
@@ -122,7 +132,10 @@ const remove = async (req, res) => {
   });
 
   if (!{{name}}) {
-    return res.send(404, '{{name}} not found');
+    return res.send(NOT_FOUND, {
+      code: NOT_FOUND,
+      message: '{{name}} not found',
+    });
   }
 
   await {{name}}.update({
@@ -130,7 +143,7 @@ const remove = async (req, res) => {
     isDeleted: true,
   });
 
-  return res.send(200, 'Ok');
+  return res.send(OK, {{name}});
 };
 
 module.exports = {

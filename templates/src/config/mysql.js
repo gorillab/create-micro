@@ -10,7 +10,7 @@ const sequelizeDB = new Sequelize(`mysql://${process.env.MYSQL_URL}`, {
   timezone: '+07:00',
 });
 
-const load = name => require(`../${name}.model.js`)(sequelizeDB, Sequelize);  // eslint-disable-line
+const load = name => require(`../${name}.model`)(sequelizeDB, Sequelize);  // eslint-disable-line
 
 module.exports = {
   load,
