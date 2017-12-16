@@ -14,10 +14,10 @@ const error404 = (req, res) => {
 };
 
 module.exports = router(
-  get('/api/tests', getList),
-  post('/api/tests', validate(create)),
-  get('/api/tests/:id', getDetails),
-  put('/api/tests/:id', validate(update)),
-  del('/api/tests/:id', remove),
+  get('/tests', getList),
+  post('/tests', validate(create)),
+  get('/tests/:id', getDetails),
+  put('/tests/:id', validate(update)),
+  del('/tests/:id', remove),
   get('/*', error404),
 );
