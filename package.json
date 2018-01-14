@@ -1,6 +1,6 @@
 {
   "name": "@gorillab/create-micro",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Project to create a new instance of service using zeit/micro",
   "author": {
     "name": "Gorillab",
