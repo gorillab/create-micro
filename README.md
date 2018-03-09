@@ -1,5 +1,5 @@
 # create-micro
-> Project to create a new instance of service using [micro](https://github.com/zeit/micro).
+Microservices based on [zeit/micro](https://github.com/zeit/micro) generator
 
 
 ## Installation
