@@ -1,6 +1,4 @@
-const Sequelize = require('sequelize');
-
-const sequelizeDB = new Sequelize(`mysql://${process.env.MYSQL_URL}`, {
+const mysql = {
   dialect: 'mysql',
   define: {
     timestamps: false,
@@ -8,10 +6,6 @@ const sequelizeDB = new Sequelize(`mysql://${process.env.MYSQL_URL}`, {
   native: false,
   logging: false,
   timezone: '+07:00',
-});
-
-const load = name => require(`../${name}.model`)(sequelizeDB, Sequelize);  // eslint-disable-line
-
-module.exports = {
-  load,
 };
+
+module.exports = mysql;

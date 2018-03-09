@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "description": "Project to create a new instance of service using micro.",
+  "description": "a microservice based on zeit/micro",
   "version": "1.0.0",
   "author": {
     "name": "Gorillab",
