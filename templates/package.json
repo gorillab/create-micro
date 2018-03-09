@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "{{originalName}}",
   "description": "a microservice based on zeit/micro",
   "version": "1.0.0",
   "author": {

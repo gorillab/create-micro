@@ -7,6 +7,7 @@ const path = require('path')
 const args = require('args')
 const chalk = require('chalk')
 const trash = require('trash')
+const camelcase = require('camelcase');
 
 const createDir = require('./create-dir')
 const getTemplateFiles = require('./get-template-files')
@@ -15,7 +16,7 @@ const createFile = require('./create-file')
 const { hasYarn, install } = require('./install-deps')
 
 args
-  .option('name', 'Name of the basic micro application', 'micro-service')
+  .option('name', 'Name of the micro service', 'micro-service')
   .option('dockerfile', 'Include Dockerfile in the project using node:9-alpine', false)
 
 const parameters = args.parse(process.argv)
@@ -28,10 +29,10 @@ const templateFileOptions = {
 
 createDir(name)
   .then(() => getTemplateFiles(templateFileOptions))
-  .then(data => renderTemplate(data, parameters))
+  .then(data => renderTemplate(data, { originalName: name, name: camelcase(name) }))
   .then(data => Promise.all(data.map(templateData => createFile(templateData, name))))
   .then(() => {
-    console.log(chalk.green('Created!\n'))
+    console.log(chalk.green(`'${name}' created!\n`))
     const projectPath = path.resolve(process.cwd(), name)
     const packageManager = hasYarn() ? 'yarn' : 'npm'
 

@@ -6,14 +6,14 @@ if (!isProduction()) {
 }
 
 const { router, get, post, put, del, all } = require('./helpers/custom-microrouter');
-const { getList, getDetails, create, update, remove } = require('./{{name}}.controller');
-const { validate } = require('./{{name}}.middleware');
+const { getList, getDetails, create, update, remove } = require('./{{originalName}}.controller');
+const { validate } = require('./{{originalName}}.middleware');
 
 module.exports = router(
-  get('/{{name}}s', getList),
-  post('/{{name}}s', validate(create)),
-  get('/{{name}}s/:id', getDetails),
-  put('/{{name}}s/:id', validate(update)),
-  del('/{{name}}s/:id', remove),
+  get('/{{originalName}}', getList),
+  post('/{{originalName}}', validate(create)),
+  get('/{{originalName}}/:id', getDetails),
+  put('/{{originalName}}/:id', validate(update)),
+  del('/{{originalName}}/:id', remove),
   all('/*', (req, res) => res.sendNotFoundError()),
 );
