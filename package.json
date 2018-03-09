@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gorillab/create-micro.git"
+    "url": "https://github.com/gorillab/create-micro.git"
   },
   "engines": {
     "node": ">=9"
@@ -44,6 +44,7 @@
   "scripts": {
     "test:rm": "rm -rf test",
     "test:gen": "bin/index.js -n test",
-    "test:start": "cd test && yarn start"
+    "test:start": "cd test && yarn start",
+    "test": "yarn test:rm && yarn test:gen && yarn test:start"
   }
 }
