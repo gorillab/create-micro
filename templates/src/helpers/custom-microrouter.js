@@ -4,8 +4,12 @@ const { router, get, post, put, del } = require('microrouter');
 
 const { isProduction } = require('./env');
 
-const wrap = cb => (path, fn) => {
-  const newFn = (req, res) => {
+const customRouter = (...routes) => router(...routes.reduce(
+  (requestHandlers, route) => requestHandlers.concat(route), []),
+);
+
+const wrapRouteHandler = routeHandler => (path, handler) => {
+  const newHandler = (req, res) => {
     res.send = (...args) => {
       if (args.length === 1) {
         return send(res, OK, ...args);
@@ -26,16 +30,19 @@ const wrap = cb => (path, fn) => {
       error: (!isProduction() && error) || undefined,
     });
 
-    return fn(req, res);
+    return handler(req, res);
   };
 
-  return cb(path, newFn);
+  return routeHandler(path, newHandler);
 };
 
 module.exports = {
-  router,
-  get: wrap(get),
-  post: wrap(post),
-  put: wrap(put),
-  del: wrap(del),
+  router: customRouter,
+  get: wrapRouteHandler(get),
+  post: wrapRouteHandler(post),
+  put: wrapRouteHandler(put),
+  del: wrapRouteHandler(del),
+  all: (...params) => [get, post, put, del].map(
+    routeHandler => wrapRouteHandler(routeHandler)(...params),
+  ),
 };
