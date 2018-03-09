@@ -1,6 +1,6 @@
 {
   "name": "@gorillab/create-micro",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Microservices based on zeit/micro generator",
   "author": {
     "name": "Gorillab",
