@@ -3,7 +3,6 @@ const Validation = require('micro-joi');
 
 const validate = Validation(Joi.object({
   name: Joi.string().required(),
-  description: Joi.string().required(),
 }));
 
 module.exports = {

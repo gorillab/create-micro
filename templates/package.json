@@ -26,9 +26,7 @@
     "joi": "^13.0.2",
     "micro": "latest",
     "micro-joi": "^3.1.0",
-    "microrouter": "^3.0.0",
-    "mysql2": "^1.5.1",
-    "sequelize": "^4.23.0"
+    "microrouter": "^3.0.0"
   },
   "license": "MIT",
   "devDependencies": {
